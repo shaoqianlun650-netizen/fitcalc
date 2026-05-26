@@ -19,6 +19,9 @@ export interface CalculationResult {
   proteinG: number;
   carbsG: number;
   fatG: number;
+  proteinPerKg: number;
+  carbsPerKg: number;
+  fatPerKg: number;
   bmr: number;
   tdee: number;
   healthAdvice: string;
@@ -31,13 +34,39 @@ const ACTIVITY_MULTIPLIERS: Record<ActivityLevel, number> = {
   intense: 1.725,
 };
 
-const PROTEIN_PER_KG: Record<Goal, number> = {
-  cut: 2,
-  maintain: 1.6,
-  bulk: 2.2,
+const MACRO_RATIOS: Record<
+  Goal,
+  { protein: number; carbs: number; fat: number }
+> = {
+  cut: { protein: 0.32, carbs: 0.4, fat: 0.28 },
+  maintain: { protein: 0.28, carbs: 0.47, fat: 0.25 },
+  bulk: { protein: 0.28, carbs: 0.55, fat: 0.17 },
 };
 
-const FAT_PER_KG = 0.8;
+const CARBS_MAX_PER_KG = 5;
+
+function gramsPerKg(grams: number, weightKg: number): number {
+  return Math.round((grams / weightKg) * 10) / 10;
+}
+
+function calculateMacros(
+  dailyCalories: number,
+  weightKg: number,
+  goal: Goal
+): { proteinG: number; carbsG: number; fatG: number } {
+  const ratios = MACRO_RATIOS[goal];
+
+  const proteinG = Math.round((dailyCalories * ratios.protein) / 4);
+  let carbsG = Math.round((dailyCalories * ratios.carbs) / 4);
+  const fatG = Math.round((dailyCalories * ratios.fat) / 9);
+
+  const carbsCap = Math.round(weightKg * CARBS_MAX_PER_KG);
+  if (carbsG > carbsCap) {
+    carbsG = carbsCap;
+  }
+
+  return { proteinG, carbsG, fatG };
+}
 
 export function calculateBMI(weightKg: number, heightCm: number): number {
   const heightM = heightCm / 100;
@@ -100,14 +129,11 @@ export function calculateAll(input: UserInput): CalculationResult {
   const bmr = Math.round(calculateBMR(input));
   const tdee = calculateTDEE(bmr, input.activity);
   const dailyCalories = calculateTargetCalories(tdee, input.goal);
-
-  const proteinG = Math.round(input.weightKg * PROTEIN_PER_KG[input.goal]);
-  const fatG = Math.round(input.weightKg * FAT_PER_KG);
-
-  const proteinCal = proteinG * 4;
-  const fatCal = fatG * 9;
-  const remainingCal = dailyCalories - proteinCal - fatCal;
-  const carbsG = Math.max(0, Math.round(remainingCal / 4));
+  const { proteinG, carbsG, fatG } = calculateMacros(
+    dailyCalories,
+    input.weightKg,
+    input.goal
+  );
 
   return {
     bmi: Math.round(bmi * 10) / 10,
@@ -117,6 +143,9 @@ export function calculateAll(input: UserInput): CalculationResult {
     proteinG,
     carbsG,
     fatG,
+    proteinPerKg: gramsPerKg(proteinG, input.weightKg),
+    carbsPerKg: gramsPerKg(carbsG, input.weightKg),
+    fatPerKg: gramsPerKg(fatG, input.weightKg),
     bmr,
     tdee,
     healthAdvice: getHealthAdvice(bmiStatusKey, input.goal),

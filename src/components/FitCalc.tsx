@@ -13,6 +13,9 @@ import {
   Wheat,
   Zap,
 } from "lucide-react";
+import ActivityLevelGuide from "@/components/ActivityLevelGuide";
+import FoodReferenceTable from "@/components/FoodReferenceTable";
+import ScienceExplanation from "@/components/ScienceExplanation";
 import {
   calculateAll,
   type ActivityLevel,
@@ -199,9 +202,9 @@ export default function FitCalc() {
   }
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-4xl flex-col px-4 py-10 sm:px-6 sm:py-16">
-      <header className="mb-10 text-center opacity-0 animate-fade-in">
-        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/5 px-4 py-1.5 text-sm text-accent">
+    <main className="mx-auto flex min-h-screen max-w-4xl flex-col px-4 py-8 sm:px-6 sm:py-12">
+      <header className="mb-8 text-center opacity-0 animate-fade-in">
+        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/5 px-4 py-1.5 text-sm text-accent">
           <Zap className="h-4 w-4" />
           <span>智能营养计算</span>
         </div>
@@ -211,10 +214,13 @@ export default function FitCalc() {
         <p className="mt-3 text-gray-400 sm:text-lg">
           BMI, Calories & Macro Calculator
         </p>
+        <p className="mt-2 text-xs text-gray-500 sm:text-sm">
+          基于 Mifflin‑St Jeor 公式与 ACSM 运动营养标准计算
+        </p>
       </header>
 
-      <section className="mb-8 rounded-2xl border border-surface-border bg-surface-card/80 p-6 shadow-card backdrop-blur-sm transition-shadow duration-300 hover:shadow-card-hover sm:p-8 opacity-0 animate-slide-up">
-        <div className="mb-6 flex items-center gap-2 text-white">
+      <section className="mb-6 rounded-2xl border border-surface-border bg-surface-card/80 p-5 shadow-card backdrop-blur-sm transition-shadow duration-300 hover:shadow-card-hover sm:p-6 opacity-0 animate-slide-up">
+        <div className="mb-5 flex items-center gap-2 text-white">
           <Calculator className="h-5 w-5 text-accent" />
           <h2 className="text-lg font-semibold">身体数据</h2>
         </div>
@@ -288,10 +294,12 @@ export default function FitCalc() {
         </div>
       </section>
 
+      <ActivityLevelGuide />
+
       {result && (
         <section
           key={`${result.bmi}-${result.dailyCalories}`}
-          className="space-y-6 opacity-0 animate-fade-in"
+          className="mb-6 space-y-5 opacity-0 animate-fade-in"
         >
           <div className="flex items-center gap-2 text-white">
             <Target className="h-5 w-5 text-accent" />
@@ -331,6 +339,7 @@ export default function FitCalc() {
               label="每日蛋白质"
               value={result.proteinG}
               unit="g"
+              sub={`${result.proteinPerKg} g/kg`}
               delayClass="stagger-4"
             />
             <ResultCard
@@ -338,6 +347,7 @@ export default function FitCalc() {
               label="每日碳水"
               value={result.carbsG}
               unit="g"
+              sub={`${result.carbsPerKg} g/kg`}
               delayClass="stagger-5"
             />
             <ResultCard
@@ -345,11 +355,12 @@ export default function FitCalc() {
               label="每日脂肪"
               value={result.fatG}
               unit="g"
+              sub={`${result.fatPerKg} g/kg`}
               delayClass="stagger-6"
             />
           </div>
 
-          <div className="rounded-xl border border-surface-border bg-surface-card p-6 shadow-card opacity-0 animate-slide-up stagger-6">
+          <div className="rounded-xl border border-surface-border bg-surface-card p-5 shadow-card opacity-0 animate-slide-up stagger-6 sm:p-6">
             <div className="mb-3 flex items-center gap-2">
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent/10">
                 <Activity className="h-4 w-4 text-accent" />
@@ -358,6 +369,8 @@ export default function FitCalc() {
             </div>
             <p className="leading-relaxed text-gray-400">{result.healthAdvice}</p>
           </div>
+
+          <ScienceExplanation />
 
           <div className="flex flex-wrap justify-center gap-3 opacity-0 animate-scale-in stagger-6">
             {[
@@ -383,7 +396,9 @@ export default function FitCalc() {
         </section>
       )}
 
-      <footer className="mt-auto pt-12 text-center text-sm text-gray-600">
+      <FoodReferenceTable />
+
+      <footer className="mt-auto pt-6 text-center text-sm text-gray-600">
         Built with FitCalc
       </footer>
     </main>
