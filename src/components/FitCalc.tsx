@@ -16,6 +16,7 @@ import {
 import ActivityLevelGuide from "@/components/ActivityLevelGuide";
 import FoodReferenceTable from "@/components/FoodReferenceTable";
 import ScienceExplanation from "@/components/ScienceExplanation";
+import SiteFooter from "@/components/SiteFooter";
 import {
   calculateAll,
   type ActivityLevel,
@@ -398,9 +399,7 @@ export default function FitCalc() {
 
       <FoodReferenceTable />
 
-      <footer className="mt-auto pt-6 text-center text-sm text-gray-600">
-        Built with FitCalc
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

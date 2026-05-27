@@ -13,9 +13,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FitCalc — BMI, Calories & Macro Calculator",
+  title: "FitCalc 热量计算器｜BMI & TDEE 基础代谢计算",
   description:
-    "现代健身营养计算器：BMI、每日热量与宏量营养素（蛋白质、碳水、脂肪）一键计算。",
+    "免费在线热量计算器，输入个人数据快速计算 BMI、基础代谢率、每日热量消耗，获取减脂、维持、增肌的参考热量区间，附带基础健康建议。",
+  keywords: [
+    "TDEE计算",
+    "基础代谢计算器",
+    "BMI计算器",
+    "减脂热量",
+    "每日消耗热量",
+    "健身热量计算",
+  ],
+  openGraph: {
+    title: "FitCalc 热量计算器｜BMI & TDEE 基础代谢计算",
+    description:
+      "免费在线热量计算器，输入个人数据快速计算 BMI、基础代谢率、每日热量消耗，获取减脂、维持、增肌的参考热量区间，附带基础健康建议。",
+    type: "website",
+    locale: "zh_CN",
+    siteName: "FitCalc",
+  },
 };
 
 export default function RootLayout({
@@ -37,6 +53,19 @@ export default function RootLayout({
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'G-3TEEDZHJCB');
+            `,
+          }}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              var _hmt = _hmt || [];
+              (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?862e941783094ccac29c076f92963c87";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+              })();
             `,
           }}
         />
