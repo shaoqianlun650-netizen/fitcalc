@@ -4,10 +4,10 @@ export default function SiteFooter() {
   return (
     <footer className="mt-auto pt-6 text-center text-sm text-gray-600">
       <p>Built with FitCalc</p>
-      <p className="mt-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+      <p className="mt-2 flex min-w-0 flex-wrap items-center justify-center gap-x-3 gap-y-2">
         <Link
           href="/privacy"
-          className="text-gray-500 transition-colors hover:text-accent"
+          className="inline-flex min-h-11 touch-manipulation items-center px-1 text-gray-500 transition-colors hover:text-accent"
         >
           隐私政策
         </Link>
@@ -16,7 +16,7 @@ export default function SiteFooter() {
         </span>
         <Link
           href="/terms"
-          className="text-gray-500 transition-colors hover:text-accent"
+          className="inline-flex min-h-11 touch-manipulation items-center px-1 text-gray-500 transition-colors hover:text-accent"
         >
           服务条款
         </Link>

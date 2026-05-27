@@ -65,13 +65,13 @@ function OptionGroup<T extends string>({
       <label className="mb-2 block text-sm font-medium text-gray-400">
         {label}
       </label>
-      <div className="flex flex-wrap gap-2">
+      <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
         {options.map((opt) => (
           <button
             key={opt.value}
             type="button"
             onClick={() => onChange(opt.value)}
-            className={`rounded-lg border px-4 py-2.5 text-sm font-medium transition-all duration-200 ${
+            className={`min-h-11 touch-manipulation rounded-lg border px-3 py-3 text-sm font-medium transition-all duration-200 sm:min-h-0 sm:px-4 sm:py-2.5 ${
               value === opt.value
                 ? "border-accent/50 bg-accent/15 text-accent shadow-glow"
                 : "border-surface-border bg-surface-raised text-gray-400 hover:border-gray-500 hover:text-gray-200"
@@ -101,18 +101,19 @@ function NumberField({
   max?: number;
 }) {
   return (
-    <div>
+    <div className="min-w-0">
       <label className="mb-2 block text-sm font-medium text-gray-400">
         {label}
       </label>
       <input
         type="number"
+        inputMode="decimal"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         min={min}
         max={max}
-        className="w-full rounded-lg border border-surface-border bg-surface-raised px-4 py-3 text-gray-100 placeholder-gray-600 transition-all duration-200 focus:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/20"
+        className="box-border w-full min-h-12 max-w-full rounded-lg border border-surface-border bg-surface-raised px-4 py-3 text-base text-gray-100 placeholder-gray-600 transition-all duration-200 focus:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/20"
       />
     </div>
   );
@@ -135,21 +136,21 @@ function ResultCard({
 }) {
   return (
     <div
-      className={`rounded-xl border border-surface-border bg-surface-card p-5 shadow-card transition-all duration-300 hover:shadow-card-hover opacity-0 animate-slide-up ${delayClass ?? ""}`}
+      className={`min-w-0 rounded-xl border border-surface-border bg-surface-card p-4 shadow-card transition-all duration-300 hover:shadow-card-hover opacity-0 animate-slide-up sm:p-5 ${delayClass ?? ""}`}
     >
-      <div className="mb-3 flex items-center gap-2 text-gray-400">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent/10">
+      <div className="mb-3 flex min-w-0 items-center gap-2 text-gray-400">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent/10">
           <Icon className="h-4 w-4 text-accent" />
         </div>
-        <span className="text-sm font-medium">{label}</span>
+        <span className="min-w-0 text-sm font-medium">{label}</span>
       </div>
-      <p className="font-mono text-3xl font-bold tracking-tight text-white">
+      <p className="break-words font-mono text-2xl font-bold tracking-tight text-white sm:text-3xl">
         {value}
         {unit && (
-          <span className="ml-1 text-lg font-normal text-gray-500">{unit}</span>
+          <span className="ml-1 text-base font-normal text-gray-500 sm:text-lg">{unit}</span>
         )}
       </p>
-      {sub && <p className="mt-1 text-xs text-gray-500">{sub}</p>}
+      {sub && <p className="mt-1 break-words text-xs text-gray-500">{sub}</p>}
     </div>
   );
 }
@@ -203,24 +204,24 @@ export default function FitCalc() {
   }
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-4xl flex-col px-4 py-8 sm:px-6 sm:py-12">
-      <header className="mb-8 text-center opacity-0 animate-fade-in">
-        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/5 px-4 py-1.5 text-sm text-accent">
-          <Zap className="h-4 w-4" />
+    <main className="mx-auto flex min-h-screen w-full min-w-0 max-w-4xl flex-col overflow-x-hidden px-4 py-8 sm:px-6 sm:py-12">
+      <header className="mb-8 min-w-0 text-center opacity-0 animate-fade-in">
+        <div className="mb-3 inline-flex max-w-full items-center gap-2 rounded-full border border-accent/20 bg-accent/5 px-4 py-1.5 text-sm text-accent">
+          <Zap className="h-4 w-4 shrink-0" />
           <span>智能营养计算</span>
         </div>
-        <h1 className="bg-gradient-to-b from-white to-gray-400 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl">
+        <h1 className="break-words bg-gradient-to-b from-white to-gray-400 bg-clip-text text-3xl font-bold tracking-tight text-transparent sm:text-5xl">
           FitCalc
         </h1>
-        <p className="mt-3 text-gray-400 sm:text-lg">
+        <p className="mt-3 break-words text-sm text-gray-400 sm:text-lg">
           BMI, Calories & Macro Calculator
         </p>
-        <p className="mt-2 text-xs text-gray-500 sm:text-sm">
+        <p className="mt-2 break-words px-1 text-xs leading-relaxed text-gray-500 sm:text-sm">
           基于 Mifflin‑St Jeor 公式与 ACSM 运动营养标准计算
         </p>
       </header>
 
-      <section className="mb-6 rounded-2xl border border-surface-border bg-surface-card/80 p-5 shadow-card backdrop-blur-sm transition-shadow duration-300 hover:shadow-card-hover sm:p-6 opacity-0 animate-slide-up">
+      <section className="mb-6 min-w-0 rounded-2xl border border-surface-border bg-surface-card/80 p-4 shadow-card backdrop-blur-sm transition-shadow duration-300 hover:shadow-card-hover sm:p-6 opacity-0 animate-slide-up">
         <div className="mb-5 flex items-center gap-2 text-white">
           <Calculator className="h-5 w-5 text-accent" />
           <h2 className="text-lg font-semibold">身体数据</h2>
@@ -237,7 +238,7 @@ export default function FitCalc() {
             onChange={setGender}
           />
 
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-3">
             <NumberField
               label="年龄"
               value={age}
@@ -287,7 +288,7 @@ export default function FitCalc() {
           <button
             type="button"
             onClick={handleCalculate}
-            className="group flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 py-4 text-base font-semibold text-surface shadow-glow transition-all duration-300 hover:brightness-110 active:scale-[0.98]"
+            className="group flex min-h-12 w-full touch-manipulation items-center justify-center gap-2 rounded-xl bg-accent px-6 py-4 text-base font-semibold text-surface shadow-glow transition-all duration-300 hover:brightness-110 active:scale-[0.98]"
           >
             <Calculator className="h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
             开始计算
@@ -300,29 +301,29 @@ export default function FitCalc() {
       {result && (
         <section
           key={`${result.bmi}-${result.dailyCalories}`}
-          className="mb-6 space-y-5 opacity-0 animate-fade-in"
+          className="mb-6 min-w-0 space-y-5 opacity-0 animate-fade-in"
         >
           <div className="flex items-center gap-2 text-white">
             <Target className="h-5 w-5 text-accent" />
             <h2 className="text-lg font-semibold">计算结果</h2>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2">
             <ResultCard
               icon={Scale}
               label="BMI"
               value={result.bmi}
               delayClass="stagger-1"
             />
-            <div className="rounded-xl border border-surface-border bg-surface-card p-5 shadow-card opacity-0 animate-slide-up stagger-2">
-              <div className="mb-3 flex items-center gap-2 text-gray-400">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent/10">
+            <div className="min-w-0 rounded-xl border border-surface-border bg-surface-card p-4 shadow-card opacity-0 animate-slide-up stagger-2 sm:p-5">
+              <div className="mb-3 flex min-w-0 items-center gap-2 text-gray-400">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent/10">
                   <Heart className="h-4 w-4 text-accent" />
                 </div>
                 <span className="text-sm font-medium">BMI 状态</span>
               </div>
               <span
-                className={`inline-flex rounded-lg border px-4 py-2 text-xl font-bold ${BMI_STATUS_COLORS[result.bmiStatusKey]}`}
+                className={`inline-flex rounded-lg border px-4 py-2 text-lg font-bold sm:text-xl ${BMI_STATUS_COLORS[result.bmiStatusKey]}`}
               >
                 {result.bmiStatus}
               </span>
@@ -361,19 +362,21 @@ export default function FitCalc() {
             />
           </div>
 
-          <div className="rounded-xl border border-surface-border bg-surface-card p-5 shadow-card opacity-0 animate-slide-up stagger-6 sm:p-6">
-            <div className="mb-3 flex items-center gap-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent/10">
+          <div className="min-w-0 rounded-xl border border-surface-border bg-surface-card p-4 shadow-card opacity-0 animate-slide-up stagger-6 sm:p-6">
+            <div className="mb-3 flex min-w-0 items-center gap-2">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent/10">
                 <Activity className="h-4 w-4 text-accent" />
               </div>
               <h3 className="font-semibold text-white">健康建议</h3>
             </div>
-            <p className="leading-relaxed text-gray-400">{result.healthAdvice}</p>
+            <p className="break-words text-sm leading-relaxed text-gray-400 sm:text-base">
+              {result.healthAdvice}
+            </p>
           </div>
 
           <ScienceExplanation />
 
-          <div className="flex flex-wrap justify-center gap-3 opacity-0 animate-scale-in stagger-6">
+          <div className="flex min-w-0 flex-wrap justify-center gap-3 opacity-0 animate-scale-in stagger-6">
             {[
               { label: "蛋白质", g: result.proteinG, cal: result.proteinG * 4, color: "bg-rose-500" },
               { label: "碳水", g: result.carbsG, cal: result.carbsG * 4, color: "bg-amber-500" },
@@ -385,7 +388,7 @@ export default function FitCalc() {
               return (
                 <div
                   key={macro.label}
-                  className="flex items-center gap-2 rounded-lg border border-surface-border bg-surface-raised px-4 py-2 text-sm"
+                  className="flex min-h-11 min-w-[7.5rem] touch-manipulation items-center gap-2 rounded-lg border border-surface-border bg-surface-raised px-4 py-2.5 text-sm"
                 >
                   <span className={`h-2 w-2 rounded-full ${macro.color}`} />
                   <span className="text-gray-400">{macro.label}</span>

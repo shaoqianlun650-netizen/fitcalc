@@ -34,16 +34,16 @@ export default function ActivityLevelGuide() {
   const [open, setOpen] = useState(false);
 
   return (
-    <section className="mb-6 rounded-2xl border border-surface-border bg-surface-card/80 p-5 shadow-card backdrop-blur-sm sm:p-6">
+    <section className="mb-6 min-w-0 rounded-2xl border border-surface-border bg-surface-card/80 p-4 shadow-card backdrop-blur-sm sm:p-6">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="relative flex w-full items-center pr-8 text-left"
+        className="relative flex min-h-11 w-full touch-manipulation items-center pr-10 text-left"
         aria-expanded={open}
       >
-        <div className="flex items-center gap-2 text-white">
+        <div className="flex min-w-0 items-center gap-2 text-white">
           <Footprints className="h-5 w-5 shrink-0 text-accent" />
-          <h2 className="text-lg font-semibold">活动水平选择说明</h2>
+          <h2 className="text-base font-semibold sm:text-lg">活动水平选择说明</h2>
         </div>
         <ChevronDown
           className={`absolute right-0 top-0.5 h-5 w-5 shrink-0 text-gray-500 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
@@ -67,7 +67,7 @@ export default function ActivityLevelGuide() {
                     系数 {level.coefficient}
                   </span>
                 </p>
-                <p className="text-sm leading-relaxed text-gray-400">
+                <p className="break-words text-sm leading-relaxed text-gray-400">
                   {level.description}
                 </p>
               </li>

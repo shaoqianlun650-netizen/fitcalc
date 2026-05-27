@@ -12,16 +12,16 @@ function FoodCategoryCard({ category }: { category: FoodCategory }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="rounded-xl border border-surface-border bg-surface-raised">
+    <div className="min-w-0 rounded-xl border border-surface-border bg-surface-raised">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="relative flex w-full items-start p-4 pr-10 text-left"
+        className="relative flex min-h-11 w-full touch-manipulation items-start p-4 pr-12 text-left"
         aria-expanded={open}
       >
-        <h3 className="text-sm font-bold text-accent">
+        <h3 className="min-w-0 break-words pr-2 text-sm font-bold text-accent">
           {category.title}
-          <span className="ml-2 font-normal text-gray-500">
+          <span className="font-normal text-gray-500">
             （{category.subtitle}）
           </span>
         </h3>
@@ -33,12 +33,12 @@ function FoodCategoryCard({ category }: { category: FoodCategory }) {
       <div
         className={`grid transition-all duration-300 ease-out ${open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
       >
-        <div className="overflow-hidden px-4 pb-4">
-          <p className="mb-3 rounded-lg border border-surface-border bg-surface-card px-4 py-3 text-sm leading-relaxed text-gray-100">
+        <div className="min-w-0 overflow-hidden px-4 pb-4">
+          <p className="mb-3 break-words rounded-lg border border-surface-border bg-surface-card px-4 py-3 text-sm leading-relaxed text-gray-100">
             {category.explanation}
           </p>
-          <div className="overflow-x-auto rounded-xl border border-surface-border">
-            <table className="w-full min-w-[520px] text-sm">
+          <div className="max-w-full overflow-x-auto overscroll-x-contain rounded-xl border border-surface-border">
+            <table className="w-full min-w-[480px] text-sm">
               <thead>
                 <tr className="border-b border-surface-border bg-surface-card text-left">
                   <th className="px-4 py-3 font-semibold text-accent">食物</th>
@@ -84,13 +84,13 @@ function FoodCategoryCard({ category }: { category: FoodCategory }) {
 
 export default function FoodReferenceTable() {
   return (
-    <section className="mb-6 rounded-2xl border border-surface-border bg-surface-card/80 p-5 shadow-card backdrop-blur-sm sm:p-6">
-      <div className="mb-2 flex items-center gap-2 text-white">
-        <Salad className="h-5 w-5 text-accent" />
-        <h2 className="text-lg font-semibold">常见食物营养参考</h2>
+    <section className="mb-6 min-w-0 rounded-2xl border border-surface-border bg-surface-card/80 p-4 shadow-card backdrop-blur-sm sm:p-6">
+      <div className="mb-2 flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 text-white">
+        <Salad className="h-5 w-5 shrink-0 text-accent" />
+        <h2 className="text-base font-semibold sm:text-lg">常见食物营养参考</h2>
         <span className="text-sm font-normal text-gray-500">（每 100g 可食部）</span>
       </div>
-      <p className="mb-4 text-sm leading-relaxed text-gray-400">
+      <p className="mb-4 break-words text-sm leading-relaxed text-gray-400">
         对照下方数据，直观规划每日三餐摄入量，烹饪用油会额外增加热量。数据来源：《中国食物成分表》
       </p>
 

@@ -5,6 +5,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    max-width: 100%;
   }
 
   body {
@@ -13,6 +15,8 @@
       radial-gradient(ellipse 80% 50% at 50% -20%, rgba(61, 214, 140, 0.12), transparent),
       radial-gradient(ellipse 60% 40% at 100% 100%, rgba(61, 214, 140, 0.05), transparent);
     min-height: 100vh;
+    overflow-x: hidden;
+    max-width: 100%;
   }
 
   input[type="number"]::-webkit-inner-spin-button,
@@ -23,6 +27,7 @@
 
   input[type="number"] {
     -moz-appearance: textfield;
+    font-size: 16px;
   }
 }
 

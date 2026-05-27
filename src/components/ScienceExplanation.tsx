@@ -24,16 +24,16 @@ const SCIENCE_POINTS = [
 
 export default function ScienceExplanation() {
   return (
-    <div className="rounded-xl border border-surface-border bg-surface-card p-5 shadow-card sm:p-6">
-      <div className="mb-4 flex items-center gap-2">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent/10">
+    <div className="min-w-0 rounded-xl border border-surface-border bg-surface-card p-4 shadow-card sm:p-6">
+      <div className="mb-4 flex min-w-0 items-center gap-2">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent/10">
           <BookOpen className="h-4 w-4 text-accent" />
         </div>
         <h3 className="font-semibold text-white">计算依据说明</h3>
       </div>
       <ol className="space-y-4">
         {SCIENCE_POINTS.map((point, index) => (
-          <li key={point.title} className="text-sm leading-relaxed">
+          <li key={point.title} className="break-words text-sm leading-relaxed">
             <span className="font-medium text-gray-300">
               {index + 1}. {point.title}：
             </span>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import BaiduAnalytics from "@/components/BaiduAnalytics";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -56,23 +57,11 @@ export default function RootLayout({
             `,
           }}
         />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              var _hmt = _hmt || [];
-              (function() {
-                var hm = document.createElement("script");
-                hm.src = "https://hm.baidu.com/hm.js?862e941783094ccac29c076f92963c87";
-                var s = document.getElementsByTagName("script")[0];
-                s.parentNode.insertBefore(hm, s);
-              })();
-            `,
-          }}
-        />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans`}
+        className={`${geistSans.variable} ${geistMono.variable} min-w-0 overflow-x-hidden font-sans`}
       >
+        <BaiduAnalytics />
         {children}
       </body>
     </html>
